@@ -1,16 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-interface GlassCardProps {
+interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
-    className?: string;
     hover?: boolean;
 }
 
-export const GlassCard: React.FC<GlassCardProps> = ({ children, className = '', hover = true }) => (
+export const GlassCard: React.FC<GlassCardProps> = ({ children, className = '', hover = true, ...props }) => (
     <motion.div
         whileHover={hover ? { y: -5, transition: { duration: 0.2 } } : {}}
         className={`glass-panel p-6 overflow-hidden relative group ${className}`}
+        {...(props as any)}
     >
         {/* Animated background glow on hover */}
         {hover && (

@@ -7,13 +7,13 @@ export default {
     theme: {
         extend: {
             colors: {
-                background: '#FDFBF7',
-                surface: '#FFFFFF',
+                background: '#FFFFFF',
+                surface: '#FDFBF7',
                 primary: {
-                    DEFAULT: '#2D5A27', // SAADEE Green
-                    dark: '#1B3D18',
+                    DEFAULT: '#FBBF24', // Jaune Orangé - Saadé Golden
+                    dark: '#D97706',
                 },
-                accent: '#C5A059', // Elegant Gold
+                accent: '#EC4899', // Pink - Saadé Sweetness
                 card: '#FFFFFF',
                 text: '#1A1A1A',
             },

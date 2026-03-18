@@ -2,7 +2,6 @@ import { db } from '../db';
 import type { Sale, SaleItem, BusinessModule } from '../../types';
 import { v4 as uuidv4 } from 'uuid';
 
-
 export const SalesService = {
     async getAll() {
         return await db.sales.toArray();
@@ -14,8 +13,18 @@ export const SalesService = {
         module: BusinessModule,
         clientId?: string
     ) {
+        let totalProfit = 0;
         const subtotal = items.reduce((acc, item) => acc + item.total, 0);
         const total = subtotal; // For now no discount logic
+
+        // Calculate profit if product info is available
+        const products = await db.products.toArray();
+        items.forEach(item => {
+            const product = products.find(p => p.id === item.productId);
+            if (product) {
+                totalProfit += (item.price - product.costPrice) * item.quantity;
+            }
+        });
 
         const sale: Sale = {
             id: uuidv4(),
@@ -24,6 +33,7 @@ export const SalesService = {
             subtotal,
             discount: 0,
             total,
+            profit: totalProfit,
             paymentMethod,
             status: 'COMPLETED',
             createdAt: Date.now(),

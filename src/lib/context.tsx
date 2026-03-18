@@ -1,8 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
-
-
-export type BusinessModule = 'REPAIR' | 'FASHION' | 'HARDWARE' | 'GENERAL_RETAIL';
+export type BusinessModule = 'RESTAURANT' | 'BAKERY' | 'DELIVERY' | 'GENERAL_RETAIL';
 
 interface AppState {
     activeModules: BusinessModule[];
@@ -18,7 +16,7 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'pro-shop-ultra-state';
+const STORAGE_KEY = 'saade-state';
 
 const loadState = (): AppState => {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -30,8 +28,8 @@ const loadState = (): AppState => {
         }
     }
     return {
-        activeModules: ['GENERAL_RETAIL'],
-        shopName: 'ProShop Ultra',
+        activeModules: ['RESTAURANT', 'BAKERY'],
+        shopName: 'Saadé',
         isDarkMode: true,
     };
 };
@@ -68,4 +66,3 @@ export const useApp = () => {
     if (!context) throw new Error('useApp must be used within an AppProvider');
     return context;
 };
-
