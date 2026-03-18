@@ -1,7 +1,8 @@
+```javascript
 import React, { useState } from 'react';
 import {
     Plus, Filter,
-    Scan, Layers, Smartphone, Package
+    Scan, Coffee, Utensils, Package, Beef
 } from 'lucide-react';
 import { useApp } from '../lib/context';
 import { GlassCard } from '../components/PremiumUI';
@@ -9,7 +10,6 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../lib/db';
 
 export const InventoryModule: React.FC = () => {
-    const { state } = useApp();
     const [filter, setFilter] = useState('ALL');
 
     const products = useLiveQuery(
@@ -19,9 +19,10 @@ export const InventoryModule: React.FC = () => {
 
     const filteredProducts = products?.filter(p => {
         if (filter === 'ALL') return true;
-        if (filter === 'PHONES') return p.category === 'Téléphonie';
-        if (filter === 'FASHION') return p.category === 'Mode';
-        if (filter === 'GENERAL') return p.category === 'Accessoires';
+        if (filter === 'MATIERES') return p.category === 'Matières Premières';
+        if (filter === 'PATISSERIE') return p.category === 'Pâtisserie';
+        if (filter === 'REPRODUCTION') return p.category === 'Produits Finis';
+        if (filter === 'BOISSONS') return p.category === 'Boissons';
         return true;
     });
 
@@ -41,14 +42,16 @@ export const InventoryModule: React.FC = () => {
                 <GlassCard className="flex-1 p-2" hover={false}>
                     <div className="flex items-center gap-2 px-2">
                         <Filter className="w-4 h-4 text-white/20" />
-                        <div className="flex gap-1">
-                            {['ALL', 'PHONES', 'FASHION', 'GENERAL'].map((f) => (
+                        <div className="flex gap-1 overflow-x-auto pb-1 no-scrollbar">
+                            {['ALL', 'MATIERES', 'PATISSERIE', 'RESTAURATION', 'BOISSONS'].map((f) => (
                                 <button
                                     key={f}
                                     onClick={() => setFilter(f)}
-                                    className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${filter === f ? 'bg-primary text-white' : 'hover:bg-white/5 text-white/40'}`}
+                                    className={`px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all whitespace-nowrap ${filter === f ? 'bg-primary text-white' : 'hover:bg-white/5 text-white/40'}`}
                                 >
-                                    {f}
+                                    {f === 'ALL' ? 'TOUT' :
+                                     f === 'MATIERES' ? 'MATIÈRES PREMIÈRES' :
+                                     f === 'RESTAURATION' ? 'RESTAURANT (ÔMyDog)' : f}
                                 </button>
                             ))}
                         </div>
@@ -71,12 +74,7 @@ export const InventoryModule: React.FC = () => {
                             <th className="p-4 text-xs font-bold text-white/40 uppercase tracking-widest">Catégorie</th>
                             <th className="p-4 text-xs font-bold text-white/40 uppercase tracking-widest">Stock / Etat</th>
                             <th className="p-4 text-xs font-bold text-white/40 uppercase tracking-widest">Prix</th>
-                            {state.activeModules.includes('REPAIR') && (
-                                <th className="p-4 text-xs font-bold text-white/40 uppercase tracking-widest">IMEIs</th>
-                            )}
-                            {state.activeModules.includes('FASHION') && (
-                                <th className="p-4 text-xs font-bold text-white/40 uppercase tracking-widest">Spécificités</th>
-                            )}
+                             <th className="p-4 text-xs font-bold text-white/40 uppercase tracking-widest text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
@@ -84,10 +82,11 @@ export const InventoryModule: React.FC = () => {
                             <tr key={product.id} className="hover:bg-white/5 transition-colors group">
                                 <td className="p-4">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                            {product.category === 'Téléphonie' ? <Smartphone className="w-5 h-5" /> :
-                                                product.category === 'Mode' ? <Layers className="w-5 h-5" /> :
-                                                    <Package className="w-5 h-5" />}
+                                         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                                            {product.category === 'Matières Premières' ? <Package className="w-5 h-5" /> :
+                                                product.category === 'Pâtisserie' ? <Coffee className="w-5 h-5" /> :
+                                                product.category === 'Produits Finis' ? <Beef className="w-5 h-5" /> :
+                                                    <Utensils className="w-5 h-5" />}
                                         </div>
                                         <div>
                                             <p className="font-medium text-sm">{product.name}</p>
@@ -106,16 +105,9 @@ export const InventoryModule: React.FC = () => {
                                     </div>
                                 </td>
                                 <td className="p-4 font-bold text-sm">{product.price.toLocaleString()} F</td>
-                                {state.activeModules.includes('REPAIR') && (
-                                    <td className="p-4 text-xs text-white/40">
-                                        {product.features.imeis?.length || 0} enregistrés
-                                    </td>
-                                )}
-                                {state.activeModules.includes('FASHION') && (
-                                    <td className="p-4 text-xs text-white/40">
-                                        {product.features.sizes?.join(', ') || '-'}
-                                    </td>
-                                )}
+                                 <td className="p-4 text-right">
+                                    <button className="text-[10px] font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-lg hover:bg-primary hover:text-white transition-all">MODIFIER</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

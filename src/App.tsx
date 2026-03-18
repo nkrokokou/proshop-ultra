@@ -9,6 +9,7 @@ import { MiniChart } from './components/MiniChart'
 import { SaadeePOS } from './modules/SaadeePOS'
 import { CEODashboard } from './modules/CEODashboard'
 import { InventoryModule } from './modules/InventoryModule';
+import { ConfigurationModule } from './modules/ConfigurationModule';
 import { motion, AnimatePresence } from 'framer-motion'
 import { AppProvider, useApp } from './lib/context'
 import { useLiveQuery } from 'dexie-react-hooks'
@@ -100,6 +101,7 @@ const Layout = () => {
                 activeTab === 'Ventes' ? <SaadeePOS /> :
                   activeTab === 'Inventaire' ? <InventoryModule /> :
                     activeTab === 'CEO' ? <CEODashboard /> :
+                      activeTab === 'Paramètres' ? <ConfigurationModule /> :
                         <ComingSoon tab={activeTab} />}
             </motion.div>
           </AnimatePresence>

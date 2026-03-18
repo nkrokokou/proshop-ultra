@@ -22,7 +22,7 @@ export interface Product {
         brand?: string;          // GENERAL
         model?: string;          // GENERAL
         weight?: number;         // HARDWARE
-        unit: 'piece' | 'kg' | 'm' | 'l' | 'pack';
+        unit: 'piece' | 'kg' | 'm' | 'l' | 'pack' | 'sac' | 'bout' | 'litre';
         shelfLocation?: string;
     };
 }

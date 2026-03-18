@@ -27,50 +27,62 @@ export const db = new ProShopDatabase();
 export const seedDatabase = async () => {
     const productCount = await db.products.count();
     if (productCount === 0) {
-        console.log('Seeding initial data...');
+        console.log('Seeding initial SAADEE data...');
         await db.products.bulkAdd([
             {
                 id: 'p1',
-                name: 'iPhone 15 Pro',
-                category: 'Téléphonie',
-                price: 850000,
-                costPrice: 750000,
-                stock: 12,
-                minStock: 5,
-                barcode: '123456789',
+                name: 'Farine T45 (Sac de 25kg)',
+                category: 'Matières Premières',
+                price: 12500,
+                costPrice: 12500,
+                stock: 10,
+                minStock: 2,
+                barcode: 'MAT-FAR-001',
                 createdAt: Date.now(),
                 updatedAt: Date.now(),
                 features: {
-                    imeis: ['IMEI001', 'IMEI002'],
-                    unit: 'piece'
+                    unit: 'sac'
                 }
             },
             {
                 id: 'p2',
-                name: 'T-Shirt Premium',
-                category: 'Mode',
-                price: 18500,
-                costPrice: 8000,
-                stock: 25,
-                minStock: 10,
-                barcode: '987654321',
+                name: 'Beurre Gastronomique (Plat 1kg)',
+                category: 'Matières Premières',
+                price: 7500,
+                costPrice: 7500,
+                stock: 15,
+                minStock: 5,
+                barcode: 'MAT-BEU-001',
                 createdAt: Date.now(),
                 updatedAt: Date.now(),
                 features: {
-                    sizes: ['M', 'L', 'XL'],
-                    colors: ['Noir', 'Bleu'],
-                    unit: 'piece'
+                    unit: 'kg'
                 }
             },
             {
                 id: 'p3',
-                name: 'Chargeur Ultra-Fast',
-                category: 'Accessoires',
-                price: 15000,
-                costPrice: 5000,
-                stock: 50,
-                minStock: 15,
-                barcode: '456123789',
+                name: 'Hot Dog Moms',
+                category: 'Produits Finis',
+                price: 3000,
+                costPrice: 1200,
+                stock: 0, // Stock non suivi car préparé à la commande
+                minStock: 0,
+                barcode: 'OMD-HD-001',
+                createdAt: Date.now(),
+                updatedAt: Date.now(),
+                features: {
+                    unit: 'piece'
+                }
+            },
+            {
+                id: 'p4',
+                name: 'Croissant Beurre',
+                category: 'Pâtisserie',
+                price: 1500,
+                costPrice: 450,
+                stock: 40,
+                minStock: 10,
+                barcode: 'SAA-PAT-001',
                 createdAt: Date.now(),
                 updatedAt: Date.now(),
                 features: {
