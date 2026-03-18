@@ -1,9 +1,9 @@
-export type BusinessModule = 'REPAIR' | 'FASHION' | 'HARDWARE' | 'GENERAL_RETAIL';
+export type BusinessModule = 'RESTAURANT' | 'BAKERY' | 'DELIVERY';
 
 export interface Product {
     id: string;
     name: string;
-    category: string;
+    category: 'Matières Premières' | 'Pâtisserie' | 'Restaurant' | 'Boissons';
     price: number;
     costPrice: number;
     stock: number;
@@ -14,16 +14,10 @@ export interface Product {
     createdAt: number;
     updatedAt: number;
 
-    // Dynamic features based on active modules
     features: {
-        imeis?: string[];        // REPAIR
-        sizes?: string[];        // FASHION
-        colors?: string[];       // FASHION
-        brand?: string;          // GENERAL
-        model?: string;          // GENERAL
-        weight?: number;         // HARDWARE
-        unit: 'piece' | 'kg' | 'm' | 'l' | 'pack' | 'sac' | 'bout' | 'litre';
+        unit: 'piece' | 'kg' | 'g' | 'l' | 'ml' | 'sac' | 'bout' | 'paquet';
         shelfLocation?: string;
+        recipeId?: string; // Link to a recipe for cost calculation
     };
 }
 
@@ -44,10 +38,7 @@ export interface SaleItem {
     quantity: number;
     price: number;
     total: number;
-    // Specific attributes captured at sale time
-    selectedImeis?: string[];
-    selectedSize?: string;
-    selectedColor?: string;
+    selectedOptions?: string[]; // e.g., "Sans oignons", "Bien cuit"
 }
 
 export interface Sale {
@@ -60,38 +51,34 @@ export interface Sale {
     paymentMethod: 'CASH' | 'MOBILE_MONEY' | 'CARD' | 'CREDIT';
     status: 'COMPLETED' | 'PENDING' | 'CANCELLED';
     createdAt: number;
-    module: BusinessModule; // Which module initiated the sale
+    module: BusinessModule;
 }
 
-export interface Repair {
+export interface SpecialOrder {
     id: string;
     clientId: string;
-    deviceName: string;
-    imei?: string;
-    problem: string;
-    solution?: string;
-    status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'DELIVERED';
-    cost: number;
-    price: number;
-    deposit: number;
-    spareParts: string[];
-    unlockCode?: string; // Pattern or PIN
-    createdAt: number;
-    deadline?: number;
-}
-
-export interface FashionOrder {
-    id: string;
-    clientId: string;
-    type: 'RETOUCHE' | 'CONFECTION';
+    orderType: 'CAKE' | 'EVENT' | 'CATERING';
     description: string;
-    measurements?: {
-        [key: string]: string; // e.g., "Epaule": "45cm"
-    };
-    status: 'PENDING' | 'CUTTING' | 'SEWING' | 'READY' | 'DELIVERED';
-    price: number;
+    status: 'PENDING' | 'PREPARING' | 'READY' | 'DELIVERED';
+    totalPrice: number;
     deposit: number;
     createdAt: number;
-    deadline?: number;
+    deadline: number; // For cakes, the pickup date
+    specifications?: {
+        flavors?: string[];
+        servings?: number;
+        message?: string;
+    };
 }
 
+export interface Recipe {
+    id: string;
+    productId: string; // The product this recipe makes (e.g., Croissant)
+    ingredients: {
+        ingredientId: string; // Product of category 'Matières Premières'
+        quantity: number;
+        unit: string;
+    }[];
+    totalCost: number;
+    lastUpdated: number;
+}

@@ -10,6 +10,7 @@ import { SaadeePOS } from './modules/SaadeePOS'
 import { CEODashboard } from './modules/CEODashboard'
 import { InventoryModule } from './modules/InventoryModule';
 import { ConfigurationModule } from './modules/ConfigurationModule';
+import { ProductionModule } from './modules/ProductionModule';
 import { motion, AnimatePresence } from 'framer-motion'
 import { AppProvider, useApp } from './lib/context'
 import { useLiveQuery } from 'dexie-react-hooks'
@@ -47,6 +48,7 @@ const Layout = () => {
           <SidebarItem icon={ShoppingCart} label="Caisse" active={activeTab === 'Ventes'} onClick={() => setActiveTab('Ventes')} />
           <SidebarItem icon={LayoutGrid} label="Espace CEO" active={activeTab === 'CEO'} onClick={() => setActiveTab('CEO')} />
           <SidebarItem icon={Package} label="Inventaire" active={activeTab === 'Inventaire'} onClick={() => setActiveTab('Inventaire')} />
+          <SidebarItem icon={Zap} label="Production & Recalibrage" active={activeTab === 'Production'} onClick={() => setActiveTab('Production')} />
 
           <div className="mt-auto border-t border-zinc-100 pt-4">
             <SidebarItem icon={Settings} label="Configuration" active={activeTab === 'Paramètres'} onClick={() => setActiveTab('Paramètres')} />
@@ -100,9 +102,10 @@ const Layout = () => {
               {activeTab === 'Dashboard' ? <HomeDashboard /> :
                 activeTab === 'Ventes' ? <SaadeePOS /> :
                   activeTab === 'Inventaire' ? <InventoryModule /> :
-                    activeTab === 'CEO' ? <CEODashboard /> :
-                      activeTab === 'Paramètres' ? <ConfigurationModule /> :
-                        <ComingSoon tab={activeTab} />}
+                    activeTab === 'Production' ? <ProductionModule /> :
+                      activeTab === 'CEO' ? <CEODashboard /> :
+                        activeTab === 'Paramètres' ? <ConfigurationModule /> :
+                          <ComingSoon tab={activeTab} />}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -118,12 +121,12 @@ const HomeDashboard = () => {
   // Live queries for real statistics
   const sales = useLiveQuery(() => db.sales.toArray());
   const clients = useLiveQuery(() => db.clients.toArray());
-  const activeOrders = useLiveQuery(() => db.sales.where('status').equals('OPEN').toArray()); // Assuming status 'OPEN' for tables
+  const specialOrders = useLiveQuery(() => db.specialOrders.where('status').notEqual('DELIVERED').toArray());
   const stockAlerts = useLiveQuery(() => db.products.filter(p => p.stock <= p.minStock).toArray());
 
   const totalTurnover = sales?.reduce((acc: number, s) => acc + s.total, 0) || 0;
   const clientCount = clients?.length || 0;
-  const ordersCount = activeOrders?.length || 0;
+  const ordersCount = specialOrders?.length || 0;
   const stockAlertCount = stockAlerts?.length || 0;
 
 
@@ -144,7 +147,7 @@ const HomeDashboard = () => {
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard label="Chiffre d'Affaires" value={`${totalTurnover.toLocaleString()} F`} trend={{ value: 12, isUp: true }} icon={TrendingUp} color="primary" />
         <StatCard label="Clients Fidèles" value={clientCount.toString()} trend={{ value: 5, isUp: true }} icon={Users} color="accent" />
-        <StatCard label="Commandes Actives" value={ordersCount.toString()} icon={ShoppingCart} color="orange-500" />
+        <StatCard label="Commandes Spéciales" value={ordersCount.toString()} icon={ShoppingCart} color="orange-500" />
         <StatCard label="Alertes Stock" value={stockAlertCount.toString()} trend={{ value: 0, isUp: false }} icon={Package} color="red-500" />
       </section>
 
