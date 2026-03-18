@@ -12,7 +12,7 @@ import { SalesService } from '../lib/services/SalesService';
 import type { SaleItem, Product } from '../types';
 
 export const UniversalPOS: React.FC = () => {
-    const { state } = useApp();
+    useApp();
     const [cart, setCart] = useState<SaleItem[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [configProduct, setConfigProduct] = useState<Product | null>(null);

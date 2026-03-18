@@ -1,5 +1,5 @@
 import { db } from './db';
-import { Product, Client } from '../types';
+import type { Product } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 export const migrationService = {

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import {
     Shirt, Plus, Search,
-    Scissors, Ruler, CheckCircle2, Truck, AlertCircle,
+    Scissors, Ruler, CheckCircle2, Truck,
     User, Calendar, Clock
 } from 'lucide-react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../lib/db';
 import { GlassCard } from '../components/PremiumUI';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { FashionOrder, Client } from '../types';
+import type { FashionOrder } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 export const FashionModule: React.FC = () => {
