@@ -63,8 +63,8 @@ export const CEODashboard: React.FC = () => {
                             </div>
                             <span className="text-[10px] font-black text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-100">+12% vs hier</span>
                         </div>
-                        <h4 className="text-sm text-white/40 font-bold uppercase tracking-wider">CA du Jour</h4>
-                        <p className="text-3xl font-black mt-2">425 500 F</p>
+                        <h4 className="text-[10px] text-zinc-400 font-black uppercase tracking-widest">CA du Jour</h4>
+                        <p className="text-3xl font-black mt-2 text-zinc-900">425 500 F</p>
                     </GlassCard>
 
                     <GlassCard className="p-6 text-accent">
@@ -84,8 +84,8 @@ export const CEODashboard: React.FC = () => {
                                 <TrendingUp className="w-5 h-5" />
                             </div>
                         </div>
-                        <h4 className="text-sm text-white/40 font-bold uppercase tracking-wider">Marge Moyenne</h4>
-                        <p className="text-3xl font-black mt-2">42%</p>
+                        <h4 className="text-[10px] text-zinc-400 font-black uppercase tracking-widest">Marge Moyenne</h4>
+                        <p className="text-3xl font-black mt-2 text-zinc-800">42%</p>
                     </GlassCard>
                 </div>
             )}
@@ -99,10 +99,10 @@ export const CEODashboard: React.FC = () => {
                         </h3>
                         <div className="bg-white border border-zinc-200 rounded-2xl overflow-hidden divide-y divide-zinc-100 shadow-sm">
                             {materials.map(mat => (
-                                <div key={mat.id} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors">
+                                <div key={mat.id} className="p-4 flex items-center justify-between hover:bg-zinc-50 transition-colors">
                                     <div className="flex flex-col">
-                                        <span className="text-sm font-bold">{mat.name}</span>
-                                        <span className="text-[10px] text-white/40 uppercase tracking-widest">Unité: {mat.unit}</span>
+                                        <span className="text-sm font-bold text-zinc-800">{mat.name}</span>
+                                        <span className="text-[9px] text-zinc-400 font-black uppercase tracking-widest">Unité: {mat.unit}</span>
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <input 
@@ -112,14 +112,14 @@ export const CEODashboard: React.FC = () => {
                                                 const newVal = parseInt(e.target.value);
                                                 setMaterials(prev => prev.map(m => m.id === mat.id ? {...m, pricePerUnit: newVal} : m));
                                             }}
-                                            className="w-24 bg-white/5 border border-white/10 rounded-lg py-2 px-3 text-right font-bold text-sm focus:outline-none focus:border-primary"
+                                            className="w-24 bg-zinc-50 border border-zinc-200 rounded-xl py-2 px-3 text-right font-black text-sm focus:outline-none focus:border-primary text-zinc-700"
                                         />
-                                        <span className="text-[10px] font-bold text-white/40">F/{mat.unit}</span>
+                                        <span className="text-[10px] font-black text-zinc-400">F/{mat.unit}</span>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                        <button className="w-full py-4 border-2 border-dashed border-white/10 rounded-2xl text-white/20 hover:text-white hover:border-white/20 transition-all text-sm font-bold">
+                        <button className="w-full py-4 border-2 border-dashed border-zinc-100 rounded-2xl text-zinc-300 hover:text-primary hover:border-primary/20 transition-all text-[10px] font-black uppercase tracking-widest">
                             + AJOUTER UNE MATIÈRE
                         </button>
                     </div>
@@ -159,19 +159,19 @@ export const CEODashboard: React.FC = () => {
                                 })}
                             </div>
 
-                            <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+                             <div className="pt-6 border-t border-zinc-100 flex items-center justify-between">
                                 <div>
-                                    <span className="text-[10px] font-bold text-white/40 uppercase">Marge en %</span>
-                                    <p className="text-xl font-black text-primary">{marginPercent.toFixed(1)}%</p>
+                                    <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">Marge en %</span>
+                                    <p className="text-2xl font-black text-primary">{marginPercent.toFixed(1)}%</p>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     {marginPercent < 30 ? (
-                                        <div className="bg-red-500/10 text-red-500 p-2 rounded-lg flex items-center gap-2 text-[10px] font-bold">
+                                        <div className="bg-red-500/10 text-red-500 px-3 py-1.5 rounded-xl flex items-center gap-2 text-[9px] font-black uppercase tracking-widest">
                                             <TrendingDown className="w-3 h-3" /> MARGE FAIBLE
                                         </div>
                                     ) : (
-                                        <div className="bg-green-500/10 text-green-500 p-2 rounded-lg flex items-center gap-2 text-[10px] font-bold">
-                                            <TrendingUp className="w-3 h-3" /> BONNE MARGE
+                                        <div className="bg-green-500/10 text-green-500 px-3 py-1.5 rounded-xl flex items-center gap-2 text-[9px] font-black uppercase tracking-widest">
+                                            <TrendingUp className="w-3 h-3" /> EXCELLENT
                                         </div>
                                     )}
                                 </div>

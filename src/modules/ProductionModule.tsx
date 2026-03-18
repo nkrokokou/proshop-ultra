@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { 
   Zap, Plus, Search, Scale, 
-  Clock, CheckCircle2, Package, TrendingUp,
-  Beef, ChefHat
+  Clock, ChefHat, TrendingUp
 } from 'lucide-react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../lib/db';
 import { GlassCard } from '../components/PremiumUI';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export const ProductionModule: React.FC = () => {
     const [view, setView] = useState<'ORDERS' | 'RECIPES'>('ORDERS');

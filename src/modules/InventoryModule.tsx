@@ -19,7 +19,7 @@ export const InventoryModule: React.FC = () => {
         if (filter === 'ALL') return true;
         if (filter === 'MATIERES') return p.category === 'Matières Premières';
         if (filter === 'PATISSERIE') return p.category === 'Pâtisserie';
-        if (filter === 'REPRODUCTION') return p.category === 'Produits Finis';
+        if (filter === 'RESTAURATION') return p.category === 'Restaurant';
         if (filter === 'BOISSONS') return p.category === 'Boissons';
         return true;
     });
@@ -63,7 +63,6 @@ export const InventoryModule: React.FC = () => {
                 </GlassCard>
             </div>
 
-            {/* Modern Table Layout */}
             <GlassCard className="p-0 overflow-hidden">
                 <table className="w-full text-left border-collapse">
                     <thead>
@@ -83,7 +82,7 @@ export const InventoryModule: React.FC = () => {
                                          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                                             {product.category === 'Matières Premières' ? <Package className="w-5 h-5" /> :
                                                 product.category === 'Pâtisserie' ? <Coffee className="w-5 h-5" /> :
-                                                product.category === 'Produits Finis' ? <Beef className="w-5 h-5" /> :
+                                                product.category === 'Restaurant' ? <Beef className="w-5 h-5" /> :
                                                     <Utensils className="w-5 h-5" />}
                                         </div>
                                          <div>
@@ -98,8 +97,8 @@ export const InventoryModule: React.FC = () => {
                                 <td className="p-4">
                                     <div className="flex items-center gap-2">
                                         <div className={`w-2 h-2 rounded-full ${product.stock <= product.minStock ? 'bg-orange-500 animate-pulse' : 'bg-green-500'} shadow-lg`} />
-                                        <span className="text-sm font-bold">{product.stock}</span>
-                                        <span className="text-[10px] text-white/20">/ {product.minStock} min</span>
+                                        <span className="text-sm font-bold text-zinc-800">{product.stock}</span>
+                                        <span className="text-[10px] text-zinc-400 font-bold ml-1">/ {product.minStock} min</span>
                                     </div>
                                 </td>
                                 <td className="p-4 font-black text-sm text-primary">{product.price.toLocaleString()} F</td>
@@ -121,4 +120,3 @@ export const InventoryModule: React.FC = () => {
         </div>
     );
 };
-

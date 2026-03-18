@@ -2,7 +2,6 @@ import { db } from '../db';
 import type { Product } from '../../types';
 import { v4 as uuidv4 } from 'uuid';
 
-
 export const ProductService = {
     async getAll() {
         return await db.products.toArray();
@@ -31,19 +30,6 @@ export const ProductService = {
 
     async delete(id: string) {
         return await db.products.delete(id);
-    },
-
-    async addImei(productId: string, imei: string) {
-        const product = await db.products.get(productId);
-        if (product) {
-            const imeis = product.features.imeis || [];
-            if (!imeis.includes(imei)) {
-                await db.products.update(productId, {
-                    'features.imeis': [...imeis, imei],
-                    updatedAt: Date.now(),
-                });
-            }
-        }
     },
 
     async updateStock(id: string, newStock: number) {

@@ -7,6 +7,8 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import type { SaadeeItem } from '../data/saadeeMenu';
 import { SAADEE_MENU } from '../data/saadeeMenu';
+import { db } from '../lib/db';
+import { v4 as uuidv4 } from 'uuid';
 
 export const SaadeePOS: React.FC = () => {
   const [cart, setCart] = useState<(SaadeeItem & { quantity: number })[]>([]);
@@ -52,6 +54,33 @@ export const SaadeePOS: React.FC = () => {
     console.log('ENVOI BAR:', barItems);
 
     alert(`Commande envoyée !\nCuisine: ${kitchenItems.length} articles\nBar: ${barItems.length} articles`);
+    setCart([]);
+  };
+
+  const handlePayment = async () => {
+    if (cart.length === 0) return;
+
+    const saleId = uuidv4();
+    const newSale = {
+        id: saleId,
+        items: cart.map(item => ({
+            productId: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+            total: item.price * item.quantity
+        })),
+        subtotal: total,
+        discount: 0,
+        total: total,
+        paymentMethod: 'CASH' as const,
+        status: 'COMPLETED' as const,
+        createdAt: Date.now(),
+        module: 'RESTAURANT' as const
+    };
+
+    await db.sales.add(newSale);
+    alert('Vente enregistrée avec succès !');
     setCart([]);
   };
 
@@ -175,7 +204,10 @@ export const SaadeePOS: React.FC = () => {
                 <Send className="w-5 h-5 text-zinc-300 group-hover:text-primary transition-colors" />
                 <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Cuisine / Bar</span>
              </button>
-             <button className="flex flex-col items-center gap-2 py-4 rounded-2xl bg-primary shadow-lg shadow-primary/20 hover:scale-105 transition-all">
+             <button 
+                onClick={handlePayment}
+                className="flex flex-col items-center gap-2 py-4 rounded-2xl bg-primary shadow-lg shadow-primary/20 hover:scale-105 transition-all text-white"
+             >
                 <CheckCircle2 className="w-5 h-5" />
                 <span className="text-[10px] font-bold uppercase tracking-wider">Payer</span>
              </button>
