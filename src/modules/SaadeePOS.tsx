@@ -139,15 +139,15 @@ export const SaadeePOS: React.FC = () => {
               >
                 <div className="flex justify-between items-start">
                   <span className="text-[11px] font-bold leading-tight flex-1 text-zinc-700">{item.name}</span>
-                  <button onClick={() => removeFromCart(item.id)} className="text-white/20 hover:text-red-400 p-1">
+                  <button onClick={() => removeFromCart(item.id)} className="text-zinc-300 hover:text-red-500 p-1 transition-colors">
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
                 <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2 bg-black/20 rounded-lg p-1">
-                    <button onClick={() => updateQuantity(item.id, -1)} className="w-6 h-6 rounded flex items-center justify-center bg-white/5 hover:bg-white/10 text-xs">-</button>
-                    <span className="text-xs font-black w-4 text-center">{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.id, 1)} className="w-6 h-6 rounded flex items-center justify-center bg-white/5 hover:bg-white/10 text-xs">+</button>
+                  <div className="flex items-center gap-2 bg-zinc-100 rounded-lg p-1 border border-zinc-200">
+                    <button onClick={() => updateQuantity(item.id, -1)} className="w-6 h-6 rounded flex items-center justify-center bg-white hover:bg-zinc-200 text-xs text-zinc-600 transition-colors">-</button>
+                    <span className="text-xs font-black w-4 text-center text-zinc-900">{item.quantity}</span>
+                    <button onClick={() => updateQuantity(item.id, 1)} className="w-6 h-6 rounded flex items-center justify-center bg-white hover:bg-zinc-200 text-xs text-zinc-600 transition-colors">+</button>
                   </div>
                   <span className="text-sm font-black text-primary">{(item.price * item.quantity).toLocaleString()} F</span>
                 </div>

@@ -117,12 +117,12 @@ const HomeDashboard = () => {
   // Live queries for real statistics
   const sales = useLiveQuery(() => db.sales.toArray());
   const clients = useLiveQuery(() => db.clients.toArray());
-  const repairs = useLiveQuery(() => db.repairs.where('status').notEqual('DELIVERED').toArray());
+  const activeOrders = useLiveQuery(() => db.sales.where('status').equals('OPEN').toArray()); // Assuming status 'OPEN' for tables
   const stockAlerts = useLiveQuery(() => db.products.filter(p => p.stock <= p.minStock).toArray());
 
   const totalTurnover = sales?.reduce((acc: number, s) => acc + s.total, 0) || 0;
   const clientCount = clients?.length || 0;
-  const repairCount = repairs?.length || 0;
+  const ordersCount = activeOrders?.length || 0;
   const stockAlertCount = stockAlerts?.length || 0;
 
 
@@ -141,10 +141,10 @@ const HomeDashboard = () => {
       </div>
 
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard label="Chiffre d'Affaires" value={`${totalTurnover.toLocaleString()} F`} trend={{ value: 0, isUp: true }} icon={TrendingUp} color="primary" />
-        <StatCard label="Nouveaux Clients" value={clientCount.toString()} trend={{ value: 0, isUp: true }} icon={Users} color="accent" />
-        <StatCard label="Réparations en cours" value={repairCount.toString()} icon={Wrench} color="orange-400" />
-        <StatCard label="Ruptures de stock" value={stockAlertCount.toString()} trend={{ value: 0, isUp: false }} icon={Package} color="red-400" />
+        <StatCard label="Chiffre d'Affaires" value={`${totalTurnover.toLocaleString()} F`} trend={{ value: 12, isUp: true }} icon={TrendingUp} color="primary" />
+        <StatCard label="Clients Fidèles" value={clientCount.toString()} trend={{ value: 5, isUp: true }} icon={Users} color="accent" />
+        <StatCard label="Commandes Actives" value={ordersCount.toString()} icon={ShoppingCart} color="orange-500" />
+        <StatCard label="Alertes Stock" value={stockAlertCount.toString()} trend={{ value: 0, isUp: false }} icon={Package} color="red-500" />
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -155,7 +155,8 @@ const HomeDashboard = () => {
               <h3 className="text-lg font-bold">Performances Hebdomadaires</h3>
               <p className="text-sm text-white/40">Ventes cumulées par jour</p>
             </div>
-            <select className="bg-white/5 border border-white/10 rounded-lg text-xs p-2 focus:outline-none">
+            <select className="bg-zinc-100 border border-zinc-200 rounded-lg text-xs p-2 focus:outline-none focus:border-primary">
+              <option>Aujourd'hui</option>
               <option>7 derniers jours</option>
               <option>30 derniers jours</option>
             </select>
@@ -170,8 +171,8 @@ const HomeDashboard = () => {
               <Sparkles className="w-5 h-5" />
               <h3 className="font-bold">Insight Intelligent</h3>
             </div>
-            <p className="text-sm text-white/70 leading-relaxed">
-              Vos ventes de <span className="text-white font-bold">Vêtements d'été</span> ont augmenté de 25% cette semaine. Pensez à réorganiser l'étalage principal.
+            <p className="text-sm text-zinc-600 leading-relaxed">
+              Vos ventes de <span className="text-primary font-black">Croissants Pur Beurre</span> ont augmenté de 32% cette semaine. Prévoyez une fournée supplémentaire demain matin.
             </p>
             <button className="mt-4 text-xs font-bold text-accent flex items-center gap-1 hover:gap-2 transition-all">
               Voir l'analyse complète <ChevronRight className="w-3 h-3" />
@@ -179,33 +180,31 @@ const HomeDashboard = () => {
           </GlassCard>
 
           <GlassCard>
-            <h3 className="font-bold mb-4 flex items-center gap-2">
-              <Zap className="w-5 h-5 text-yellow-400" /> Actions Rapides
+            <h3 className="font-bold mb-4 flex items-center gap-2 text-zinc-800">
+              <Zap className="w-5 h-5 text-yellow-500" /> Accès Rapides
             </h3>
             <div className="grid grid-cols-1 gap-2">
               <button
-                onClick={() => toggleModule('REPAIR')}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors group"
+                className="flex items-center justify-between p-3 rounded-xl hover:bg-zinc-50 transition-colors group"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-orange-400/10 text-orange-400 flex items-center justify-center">
-                    <Wrench className="w-4 h-4" />
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                    <LayoutGrid className="w-4 h-4" />
                   </div>
-                  <span className="text-sm">Activer Module Réparation</span>
+                  <span className="text-xs font-bold text-zinc-700">Ouvrir Plan de Table</span>
                 </div>
-                <ChevronRight className="w-4 h-4 text-white/20 group-hover:text-white transition-colors" />
+                <ChevronRight className="w-4 h-4 text-zinc-300 group-hover:text-primary transition-colors" />
               </button>
               <button
-                onClick={() => toggleModule('FASHION')}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors group"
+                className="flex items-center justify-between p-3 rounded-xl hover:bg-zinc-50 transition-colors group"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-pink-400/10 text-pink-400 flex items-center justify-center">
-                    <Shirt className="w-4 h-4" />
+                  <div className="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center">
+                    <Package className="w-4 h-4" />
                   </div>
-                  <span className="text-sm">Activer Module Mode</span>
+                  <span className="text-xs font-bold text-zinc-700">Inventaire Critique</span>
                 </div>
-                <ChevronRight className="w-4 h-4 text-white/20 group-hover:text-white transition-colors" />
+                <ChevronRight className="w-4 h-4 text-zinc-300 group-hover:text-accent transition-colors" />
               </button>
             </div>
           </GlassCard>
