@@ -6,7 +6,6 @@ import {
 import { GlassCard } from '../components/PremiumUI';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../lib/db';
-import { useApp } from '../lib/context';
 
 export const InventoryModule: React.FC = () => {
     const [filter, setFilter] = useState('ALL');
@@ -112,10 +111,10 @@ export const InventoryModule: React.FC = () => {
                     </tbody>
                 </table>
 
-                {!filteredProducts || filteredProducts.length === 0 && (
-                    <div className="p-20 text-center opacity-20">
-                        <Package className="w-12 h-12 mx-auto mb-4" />
-                        <p>Aucun article trouvé</p>
+                {(!filteredProducts || filteredProducts.length === 0) && (
+                    <div className="p-20 text-center opacity-30">
+                        <Package className="w-12 h-12 mx-auto mb-4 text-zinc-400" />
+                        <p className="text-sm font-bold text-zinc-400">Aucun article trouvé</p>
                     </div>
                 )}
             </GlassCard>

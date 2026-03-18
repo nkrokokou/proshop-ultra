@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {
-  Home, Package, Settings, ShoppingCart, Wrench, Shirt,
+  Home, Package, Settings, ShoppingCart,
   Search, Bell, User, TrendingUp, Users, DollarSign,
   Sparkles, Zap, ChevronRight, LayoutGrid
 } from 'lucide-react'
@@ -112,7 +112,8 @@ const Layout = () => {
 }
 
 const HomeDashboard = () => {
-  const { toggleModule } = useApp();
+  // useApp() is available via context if needed in the future
+  useApp();
 
   // Live queries for real statistics
   const sales = useLiveQuery(() => db.sales.toArray());
