@@ -37,13 +37,13 @@ export const StatCard: React.FC<StatCardProps> = ({ label, value, trend, icon: I
     <GlassCard>
         <div className="flex justify-between items-start">
             <div>
-                <p className="text-white/40 text-sm font-medium mb-1">{label}</p>
-                <h3 className="text-2xl font-bold">{value}</h3>
+                <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1">{label}</p>
+                <h3 className="text-2xl font-black text-primary">{value}</h3>
                 {trend && (
-                    <div className={`flex items-center gap-1 mt-2 text-xs ${trend.isUp ? 'text-green-400' : 'text-red-400'}`}>
+                    <div className={`flex items-center gap-1 mt-2 text-[10px] font-bold ${trend.isUp ? 'text-green-600' : 'text-red-500'}`}>
                         <span>{trend.isUp ? '↑' : '↓'}</span>
                         <span>{Math.abs(trend.value)}%</span>
-                        <span className="text-white/20 ml-1">vs mois dernier</span>
+                        <span className="text-zinc-300 ml-1">vs mois dernier</span>
                     </div>
                 )}
             </div>

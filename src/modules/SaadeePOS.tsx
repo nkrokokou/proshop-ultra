@@ -68,7 +68,7 @@ export const SaadeePOS: React.FC = () => {
           <button
             key={cat}
             onClick={() => { setActiveCategory(cat); setActiveSection('Toutes'); }}
-            className={`flex flex-col items-center justify-center p-4 rounded-2xl transition-all ${activeCategory === cat ? 'bg-primary text-white shadow-xl shadow-primary/30 scale-105' : 'bg-white/5 text-white/40 hover:bg-white/10'}`}
+            className={`flex flex-col items-center justify-center p-4 rounded-2xl transition-all ${activeCategory === cat ? 'bg-primary text-white shadow-xl shadow-primary/20 scale-105' : 'bg-white text-zinc-400 hover:bg-zinc-100 border border-zinc-200/50'}`}
           >
             {cat === 'Ô My Dog' ? <Utensils className="w-6 h-6 mb-2" /> : <Coffee className="w-6 h-6 mb-2" />}
             <span className="text-[10px] font-bold uppercase tracking-tighter leading-none">{cat}</span>
@@ -84,7 +84,7 @@ export const SaadeePOS: React.FC = () => {
             <button
               key={section}
               onClick={() => setActiveSection(section)}
-              className={`px-6 py-2 rounded-full whitespace-nowrap text-sm font-bold transition-all ${activeSection === section ? 'bg-white text-black' : 'bg-white/5 text-white/60 hover:bg-white/10'}`}
+              className={`px-6 py-2 rounded-full whitespace-nowrap text-xs font-bold transition-all ${activeSection === section ? 'bg-primary text-white shadow-md' : 'bg-white text-zinc-500 hover:bg-zinc-100 border border-zinc-200'}`}
             >
               {section}
             </button>
@@ -102,12 +102,12 @@ export const SaadeePOS: React.FC = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
                 key={item.id}
                 onClick={() => addToCart(item)}
-                className="group relative h-32 bg-surface/40 hover:bg-surface/60 border border-white/5 rounded-2xl p-4 flex flex-col justify-between items-start transition-all hover:border-primary/50 overflow-hidden"
+                className="group relative h-32 bg-white hover:bg-zinc-50 border border-zinc-200 rounded-2xl p-4 flex flex-col justify-between items-start transition-all hover:border-primary/50 shadow-sm hover:shadow-md"
               >
-                <div className="absolute top-2 right-2 p-1.5 rounded-lg bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Zap className="w-3 h-3 text-primary shadow-glow" />
+                <div className="absolute top-2 right-2 p-1.5 rounded-lg bg-zinc-100 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Zap className="w-3 h-3 text-primary" />
                 </div>
-                <span className="text-sm font-bold text-left leading-tight w-full line-clamp-2">{item.name}</span>
+                <span className="text-xs font-bold text-left leading-tight w-full line-clamp-2 text-zinc-800">{item.name}</span>
                 <span className="text-xs font-black text-primary bg-primary/10 px-2 py-1 rounded-lg">{item.price.toLocaleString()} F</span>
                 
                 {/* Visual Hint for Printer */}
@@ -119,12 +119,12 @@ export const SaadeePOS: React.FC = () => {
       </div>
 
       {/* Right - Order Summary */}
-      <div className="w-96 flex flex-col bg-surface/30 backdrop-blur-xl border border-white/5 rounded-3xl overflow-hidden shadow-2xl">
-        <div className="p-6 bg-primary/10 border-b border-primary/20 flex justify-between items-center">
-          <h3 className="font-bold flex items-center gap-2">
+      <div className="w-96 flex flex-col bg-white border border-zinc-200 rounded-3xl overflow-hidden shadow-2xl">
+        <div className="p-6 bg-zinc-50 border-b border-zinc-100 flex justify-between items-center">
+          <h3 className="font-bold flex items-center gap-2 text-zinc-800">
             <ShoppingCart className="w-5 h-5 text-primary" /> Commande
           </h3>
-          <span className="text-[10px] font-mono bg-primary text-white px-2 py-0.5 rounded-full">LIVE</span>
+          <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded-full">SAADEE POS</span>
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
@@ -135,10 +135,10 @@ export const SaadeePOS: React.FC = () => {
                 initial={{ x: 30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: -30, opacity: 0 }}
-                className="bg-white/5 rounded-xl p-3 flex flex-col gap-2 group border border-transparent hover:border-white/10 transition-all"
+                className="bg-zinc-50 rounded-xl p-3 flex flex-col gap-2 group border border-transparent hover:border-zinc-200 transition-all"
               >
                 <div className="flex justify-between items-start">
-                  <span className="text-xs font-bold leading-tight flex-1">{item.name}</span>
+                  <span className="text-[11px] font-bold leading-tight flex-1 text-zinc-700">{item.name}</span>
                   <button onClick={() => removeFromCart(item.id)} className="text-white/20 hover:text-red-400 p-1">
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -164,16 +164,16 @@ export const SaadeePOS: React.FC = () => {
         </div>
 
         {/* Footer Actions */}
-        <div className="p-6 bg-black/40 border-t border-white/5 space-y-4">
+        <div className="p-6 bg-zinc-50 border-t border-zinc-200 space-y-4">
           <div className="flex justify-between items-end">
-            <span className="text-xs text-white/40 uppercase font-black">Total à payer</span>
-            <span className="text-2xl font-black text-primary tabular-nums tracking-tighter">{total.toLocaleString()} F</span>
+            <span className="text-[10px] text-zinc-400 uppercase font-black">Total à payer</span>
+            <span className="text-2xl font-black text-primary tabular-nums tracking-tighter">{(total).toLocaleString()} F</span>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-             <button onClick={sendToCuisine} className="flex flex-col items-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-all group">
-                <Send className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
-                <span className="text-[10px] font-bold uppercase tracking-wider">Cuisine / Bar</span>
+             <button onClick={sendToCuisine} className="flex flex-col items-center gap-2 py-4 rounded-2xl bg-white border border-zinc-200 hover:border-primary/50 transition-all group">
+                <Send className="w-5 h-5 text-zinc-300 group-hover:text-primary transition-colors" />
+                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Cuisine / Bar</span>
              </button>
              <button className="flex flex-col items-center gap-2 py-4 rounded-2xl bg-primary shadow-lg shadow-primary/20 hover:scale-105 transition-all">
                 <CheckCircle2 className="w-5 h-5" />

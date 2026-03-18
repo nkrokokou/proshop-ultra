@@ -19,10 +19,10 @@ const SidebarItem = ({ icon: Icon, label, active = false, onClick }: { icon: any
   <motion.div
     whileTap={{ scale: 0.95 }}
     onClick={onClick}
-    className={`flex items-center gap-3 p-3 cursor-pointer transition-all duration-300 rounded-xl group ${active ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'hover:bg-white/5 text-white/60 hover:text-white'}`}
+    className={`flex items-center gap-3 p-3 cursor-pointer transition-all duration-300 rounded-xl group ${active ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'hover:bg-primary/5 text-zinc-600 hover:text-primary'}`}
   >
     <Icon className="w-5 h-5 transition-transform group-hover:scale-110" />
-    <span className="font-medium">{label}</span>
+    <span className="font-medium text-sm">{label}</span>
     {active && <motion.div layoutId="sidebar-active" className="ml-auto w-1.5 h-1.5 rounded-full bg-white shadow-glow" />}
   </motion.div>
 )
@@ -31,24 +31,24 @@ const Layout = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
 
   return (
-    <div className="flex h-screen bg-background text-white overflow-hidden">
+    <div className="flex h-screen bg-background text-zinc-900 overflow-hidden font-sans">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-white/5 flex flex-col p-4 gap-8 bg-surface/20 backdrop-blur-xl">
+      <aside className="w-64 border-r border-zinc-200 flex flex-col p-4 gap-8 bg-white/50 backdrop-blur-xl">
         <div className="flex items-center gap-3 px-2 py-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-bold text-xl shadow-lg shadow-primary/30">V</div>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-primary/20">V</div>
           <div>
-            <h1 className="text-sm font-bold leading-none">VILLA NO BAD DAYS</h1>
-            <span className="text-[10px] text-primary font-mono uppercase tracking-widest">Premium POS Engine</span>
+            <h1 className="text-sm font-black leading-none text-primary">VILLA NO BAD DAYS</h1>
+            <span className="text-[9px] text-accent font-mono uppercase tracking-widest font-bold">Premium POS Engine</span>
           </div>
         </div>
 
         <nav className="flex-1 flex flex-col gap-1.5 overflow-y-auto custom-scrollbar">
           <SidebarItem icon={Home} label="Tableau de bord" active={activeTab === 'Dashboard'} onClick={() => setActiveTab('Dashboard')} />
-          <SidebarItem icon={ShoppingCart} label="CAISSE (Ventes)" active={activeTab === 'Ventes'} onClick={() => setActiveTab('Ventes')} />
-          <SidebarItem icon={LayoutGrid} label="ESPACE CEO" active={activeTab === 'CEO'} onClick={() => setActiveTab('CEO')} />
-          <SidebarItem icon={Package} label="Stocks" active={activeTab === 'Inventaire'} onClick={() => setActiveTab('Inventaire')} />
+          <SidebarItem icon={ShoppingCart} label="Caisse" active={activeTab === 'Ventes'} onClick={() => setActiveTab('Ventes')} />
+          <SidebarItem icon={LayoutGrid} label="Espace CEO" active={activeTab === 'CEO'} onClick={() => setActiveTab('CEO')} />
+          <SidebarItem icon={Package} label="Inventaire" active={activeTab === 'Inventaire'} onClick={() => setActiveTab('Inventaire')} />
 
-          <div className="mt-auto border-t border-white/5 pt-4">
+          <div className="mt-auto border-t border-zinc-100 pt-4">
             <SidebarItem icon={Settings} label="Configuration" active={activeTab === 'Paramètres'} onClick={() => setActiveTab('Paramètres')} />
           </div>
         </nav>
@@ -57,31 +57,31 @@ const Layout = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="h-20 border-b border-white/5 flex items-center px-8 justify-between bg-surface/10 backdrop-blur-md">
+        <header className="h-20 border-b border-zinc-200 flex items-center px-8 justify-between bg-white/30 backdrop-blur-md">
           <div className="flex items-center gap-6 flex-1 max-w-xl">
             <div className="relative flex-1 group">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 group-focus-within:text-primary transition-colors" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-primary transition-colors" />
               <input
                 type="text"
-                placeholder="Rechercher partout... (Ctrl+K)"
-                className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 focus:outline-none focus:border-primary/50 focus:ring-4 ring-primary/5 transition-all"
+                placeholder="Rechercher..."
+                className="w-full bg-zinc-100 border border-transparent rounded-xl py-2.5 pl-10 pr-4 focus:outline-none focus:bg-white focus:border-primary/30 focus:ring-4 ring-primary/5 transition-all text-sm"
               />
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <button className="p-2.5 rounded-xl hover:bg-white/5 text-white/60 relative">
+            <button className="p-2.5 rounded-xl hover:bg-zinc-100 text-zinc-500 relative transition-colors">
               <Bell className="w-5 h-5" />
-              <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-accent rounded-full border-2 border-background" />
+              <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-accent rounded-full border-2 border-white" />
             </button>
-            <div className="w-px h-6 bg-white/10 mx-2" />
+            <div className="w-px h-6 bg-zinc-200 mx-2" />
             <div className="flex items-center gap-3 pl-2">
               <div className="text-right hidden sm:block">
-                <p className="text-sm font-bold">Admin</p>
-                <p className="text-[10px] text-white/40 uppercase tracking-wider">Super Utilisateur</p>
+                <p className="text-sm font-black text-zinc-900">Admin</p>
+                <p className="text-[10px] text-zinc-400 font-bold tracking-wider uppercase">Directeur</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                <User className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center border border-zinc-200">
+                <User className="w-5 h-5 text-zinc-600" />
               </div>
             </div>
           </div>
@@ -130,8 +130,8 @@ const HomeDashboard = () => {
     <div className="space-y-8">
       <div className="flex justify-between items-end">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Vue d'ensemble</h2>
-          <p className="text-white/40 mt-1">Bienvenue dans votre centre de contrôle intelligent.</p>
+          <h2 className="text-3xl font-black tracking-tight text-primary">Vue d'ensemble</h2>
+          <p className="text-zinc-500 font-medium mt-1">Bienvenue dans votre centre de contrôle SAADEE.</p>
         </div>
         <div className="flex gap-3">
           <button className="neo-button flex items-center gap-2">

@@ -35,15 +35,15 @@ export const CEODashboard: React.FC = () => {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="flex justify-between items-end">
                 <div>
-                    <h2 className="text-3xl font-bold tracking-tight">Espace CEO</h2>
-                    <p className="text-white/40 mt-1">Pilotage stratégique de Villa No Bad Days.</p>
+                    <h2 className="text-3xl font-black tracking-tight text-primary">Espace CEO</h2>
+                    <p className="text-zinc-500 font-medium mt-1">Pilotage stratégique de Villa No Bad Days.</p>
                 </div>
-                <div className="flex bg-white/5 p-1 rounded-xl border border-white/10">
+                <div className="flex bg-zinc-100 p-1.5 rounded-xl border border-zinc-200">
                     {(['Stats', 'Costing', 'Stock', 'Reports'] as const).map(tab => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
-                            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === tab ? 'bg-primary text-white shadow-lg' : 'text-white/40 hover:text-white'}`}
+                            className={`px-6 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === tab ? 'bg-primary text-white shadow-lg' : 'text-zinc-400 hover:text-primary'}`}
                         >
                             {tab === 'Stats' && 'Statistiques'}
                             {tab === 'Costing' && 'Recalibrage'}
@@ -61,7 +61,7 @@ export const CEODashboard: React.FC = () => {
                             <div className="p-3 rounded-xl bg-primary/10 text-primary">
                                 <DollarSign className="w-5 h-5" />
                             </div>
-                            <span className="text-[10px] font-bold text-green-400 bg-green-400/10 px-2 py-1 rounded-full">+12% vs hier</span>
+                            <span className="text-[10px] font-black text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-100">+12% vs hier</span>
                         </div>
                         <h4 className="text-sm text-white/40 font-bold uppercase tracking-wider">CA du Jour</h4>
                         <p className="text-3xl font-black mt-2">425 500 F</p>
@@ -73,9 +73,9 @@ export const CEODashboard: React.FC = () => {
                                 <PieChart className="w-5 h-5" />
                             </div>
                         </div>
-                        <h4 className="text-sm text-white/40 font-bold uppercase tracking-wider">Top Catégorie</h4>
-                        <p className="text-3xl font-black mt-2 text-white">Ô My Dog</p>
-                        <p className="text-xs text-white/40 mt-1">65% des ventes totales</p>
+                        <h4 className="text-[10px] text-zinc-400 font-black uppercase tracking-widest">Top Catégorie</h4>
+                        <p className="text-3xl font-black mt-2 text-zinc-900">Ô My Dog</p>
+                        <p className="text-xs text-zinc-500 font-medium mt-1">65% des ventes totales</p>
                     </GlassCard>
 
                     <GlassCard className="p-6">
@@ -94,10 +94,10 @@ export const CEODashboard: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Raw Materials Editor */}
                     <div className="space-y-4">
-                        <h3 className="text-lg font-bold flex items-center gap-2">
+                        <h3 className="text-lg font-black flex items-center gap-2 text-zinc-800">
                             <Package className="w-5 h-5 text-primary" /> Matières Premières
                         </h3>
-                        <div className="bg-surface/30 border border-white/5 rounded-2xl overflow-hidden divide-y divide-white/5">
+                        <div className="bg-white border border-zinc-200 rounded-2xl overflow-hidden divide-y divide-zinc-100 shadow-sm">
                             {materials.map(mat => (
                                 <div key={mat.id} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors">
                                     <div className="flex flex-col">
@@ -131,18 +131,18 @@ export const CEODashboard: React.FC = () => {
                         </h3>
                         <GlassCard className="p-6 space-y-6">
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
-                                    <span className="text-[10px] font-bold text-white/40 uppercase">Coût de Revient</span>
-                                    <p className="text-2xl font-black text-red-400">{costPrice.toFixed(0)} F</p>
+                                <div className="p-4 bg-zinc-50 rounded-2xl border border-zinc-100">
+                                    <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Coût de Revient</span>
+                                    <p className="text-2xl font-black text-red-500">{costPrice.toFixed(0)} F</p>
                                 </div>
-                                <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
-                                    <span className="text-[10px] font-bold text-white/40 uppercase">Marge brute</span>
-                                    <p className="text-2xl font-black text-green-400">{margin.toFixed(0)} F</p>
+                                <div className="p-4 bg-zinc-50 rounded-2xl border border-zinc-100">
+                                    <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Marge brute</span>
+                                    <p className="text-2xl font-black text-green-600">{margin.toFixed(0)} F</p>
                                 </div>
                             </div>
 
                             <div className="space-y-3">
-                                <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-white/20">
+                                 <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-zinc-300">
                                     <span>Ingrédient</span>
                                     <span>Quantité</span>
                                     <span>Coût</span>
@@ -150,10 +150,10 @@ export const CEODashboard: React.FC = () => {
                                 {mockRecipe.map(r => {
                                     const mat = materials.find(m => m.id === r.materialId);
                                     return (
-                                        <div key={r.materialId} className="flex justify-between items-center py-2 border-t border-white/5 text-sm">
-                                            <span className="font-bold">{mat?.name}</span>
-                                            <span className="text-white/60">{r.quantity} {r.unit}</span>
-                                            <span className="font-black">{(mat ? mat.pricePerUnit * r.quantity : 0).toFixed(0)} F</span>
+                                        <div key={r.materialId} className="flex justify-between items-center py-2 border-t border-zinc-50 text-sm">
+                                            <span className="font-bold text-zinc-700">{mat?.name}</span>
+                                            <span className="text-zinc-500 font-medium">{r.quantity} {r.unit}</span>
+                                            <span className="font-black text-zinc-900">{(mat ? mat.pricePerUnit * r.quantity : 0).toFixed(0)} F</span>
                                         </div>
                                     );
                                 })}

@@ -3,7 +3,7 @@
 
 @layer base {
   body {
-    @apply bg-background text-white antialiased overflow-x-hidden;
+    @apply bg-background text-zinc-900 antialiased overflow-x-hidden;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
@@ -18,18 +18,18 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-white/10 rounded-full hover:bg-primary/50 transition-colors;
+    @apply bg-primary/20 rounded-full hover:bg-primary/50 transition-colors;
   }
 }
 
 .shadow-glow {
-  box-shadow: 0 0 10px theme('colors.primary.DEFAULT');
+  box-shadow: 0 0 15px rgba(45, 90, 39, 0.2);
 }
 
 .glass-panel {
-  @apply bg-surface/50 backdrop-blur-md border border-white/10 rounded-2xl;
+  @apply bg-white/70 backdrop-blur-xl border border-black/5 rounded-2xl shadow-sm;
 }
 
 .neo-button {
-  @apply px-6 py-2 bg-primary hover:bg-primary-dark transition-all duration-300 rounded-lg shadow-lg hover:shadow-primary/20 active:scale-95;
+  @apply px-6 py-2 bg-primary text-white hover:bg-primary-dark transition-all duration-300 rounded-lg shadow-lg hover:shadow-primary/20 active:scale-95;
 }

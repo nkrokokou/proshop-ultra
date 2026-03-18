@@ -7,13 +7,15 @@ export default {
     theme: {
         extend: {
             colors: {
-                background: '#0a0a0b',
-                surface: '#161618',
+                background: '#FDFBF7',
+                surface: '#FFFFFF',
                 primary: {
-                    DEFAULT: '#3b82f6',
-                    dark: '#2563eb',
+                    DEFAULT: '#2D5A27', // SAADEE Green
+                    dark: '#1B3D18',
                 },
-                accent: '#8b5cf6',
+                accent: '#C5A059', // Elegant Gold
+                card: '#FFFFFF',
+                text: '#1A1A1A',
             },
             animation: {
                 'glow': 'glow 2s ease-in-out infinite alternate',
