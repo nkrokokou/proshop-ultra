@@ -45,6 +45,7 @@ export const AdvancedInventoryModule: React.FC = () => {
             id: selectedProduct?.id || `PROD-${Date.now()}`,
             name: data.name as string,
             category: data.category as string,
+            type: (data.type as 'PRODUCT' | 'INGREDIENT') || 'PRODUCT',
             price: Number(data.price),
             costPrice: Number(data.costPrice),
             stock: Number(data.stock),

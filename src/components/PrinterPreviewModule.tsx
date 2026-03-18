@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Printer, X, CheckCircle2 } from 'lucide-react';
 

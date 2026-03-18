@@ -1,6 +1,4 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Table, DollarSign, ArrowUpRight } from 'lucide-react';
+import { Table, ArrowUpRight } from 'lucide-react';
 import { GlassCard } from '../components/PremiumUI';
 
 export const AccountingModule = () => {

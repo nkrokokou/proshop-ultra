@@ -1,0 +1,12 @@
+
+> pro-shop-ultra@0.0.0 build
+> tsc -b && vite build
+
+src/App.tsx(17,35): error TS6133: 'Calendar' is declared but its value is never read.
+src/App.tsx(22,1): error TS6133: 'PrinterPreviewModule' is declared but its value is never read.
+src/App.tsx(23,1): error TS6133: 'playSound' is declared but its value is never read.
+src/components/PrinterPreviewModule.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/modules/AccountingModule.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/modules/AccountingModule.tsx(2,1): error TS6133: 'motion' is declared but its value is never read.
+src/modules/AccountingModule.tsx(3,17): error TS6133: 'DollarSign' is declared but its value is never read.
+src/modules/AdvancedInventoryModule.tsx(44,15): error TS2741: Property 'type' is missing in type '{ id: string; name: string; category: string; price: number; costPrice: number; stock: number; minStock: number; barcode: string; description: string; createdAt: number; updatedAt: number; features: { ...; }; }' but required in type 'Product'.

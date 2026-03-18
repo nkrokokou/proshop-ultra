@@ -14,13 +14,11 @@ import { CustomerDisplayModule } from './modules/CustomerDisplayModule';
 import { AccountingModule } from './modules/AccountingModule';
 import {
   Search, ShoppingCart, User, Settings, LayoutGrid,
-  Bell, RefreshCw, Package, Home, Calendar,
+  Bell, RefreshCw, Package, Home,
   ClipboardList, Zap, DollarSign, Heart,
   GraduationCap, TrendingUp, Users, Sparkles, ChevronRight, Monitor, Table
 } from 'lucide-react';
 import { GlassCard, StatCard } from './components/PremiumUI'
-import { PrinterPreviewModule } from './components/PrinterPreviewModule';
-import { playSound } from './lib/sounds';
 import { MiniChart } from './components/MiniChart'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AppProvider, useApp } from './lib/context'
