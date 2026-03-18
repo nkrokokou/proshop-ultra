@@ -1,9 +1,10 @@
+```javascript
 import React, { useState } from 'react';
 import {
-    Plus, Filter,
-    Scan, Coffee, Utensils, Package, Beef
+  Settings, Database, Download, Upload, 
+  Trash2, Save, CheckCircle2, RefreshCw,
+  Layout
 } from 'lucide-react';
-import { useApp } from '../lib/context';
 import { GlassCard } from '../components/PremiumUI';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../lib/db';
