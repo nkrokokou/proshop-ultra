@@ -142,7 +142,7 @@ export const SaadePOS: React.FC = () => {
     );
 
     return (
-        <div className="flex flex-col lg:flex-row gap-8 lg:h-[calc(100vh-12rem)] animate-in fade-in duration-700">
+        <div className="flex flex-col lg:flex-row gap-8 lg:h-[calc(100vh-8rem)] animate-in fade-in duration-700 min-h-0">
             {/* Catalog Area */}
             <div className="flex-1 flex flex-col gap-6">
                 <div className="flex flex-col md:flex-row gap-4">
@@ -203,9 +203,9 @@ export const SaadePOS: React.FC = () => {
             </div>
 
             {/* Cart Sidebar */}
-            <div className="w-full lg:w-96 flex flex-col gap-6">
-                <GlassCard className="flex-1 p-8 flex flex-col border-none shadow-2xl shadow-zinc-200/50">
-                    <div className="flex items-center justify-between mb-8">
+            <div className="w-full lg:w-96 flex flex-col gap-6 lg:h-full min-h-0">
+                <GlassCard className="flex-1 p-6 lg:p-8 flex flex-col border-none shadow-2xl shadow-zinc-200/50 min-h-0 overflow-hidden">
+                    <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-3">
                             <ShoppingCart className="w-5 h-5 text-primary" />
                             <h3 className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Panier Actuel</h3>
@@ -213,7 +213,7 @@ export const SaadePOS: React.FC = () => {
                         <span className="px-3 py-1 bg-zinc-100 rounded-full text-[9px] font-black text-zinc-500">{cart.length} ITEMS</span>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto custom-scrollbar space-y-4 mb-8">
+                    <div className="flex-1 overflow-y-auto custom-scrollbar space-y-4 mb-6 min-h-0">
                         {cart.length === 0 ? (
                             <div className="h-full flex flex-col items-center justify-center text-center opacity-30 gap-4">
                                 <ShoppingCart className="w-12 h-12" />
@@ -236,7 +236,7 @@ export const SaadePOS: React.FC = () => {
                         )}
                     </div>
 
-                    <div className="space-y-4 pt-8 border-t border-zinc-50">
+                    <div className="space-y-4 pt-6 border-t border-zinc-50 shrink-0">
                         {/* Client Selection */}
                         <button 
                             onClick={() => setShowClientModal(true)}

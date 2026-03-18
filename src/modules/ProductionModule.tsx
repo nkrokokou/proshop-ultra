@@ -13,6 +13,7 @@ export const ProductionModule: React.FC = () => {
     const [batches, setBatches] = useState<ProductionBatch[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [viewMode, setViewMode] = useState<'RECIPES' | 'BATCHES'>('RECIPES');
+    const [showNewRecipe, setShowNewRecipe] = useState(false);
 
     useEffect(() => {
         loadData();
@@ -82,7 +83,7 @@ export const ProductionModule: React.FC = () => {
                         <button onClick={() => setViewMode('RECIPES')} className={`px-4 py-2 rounded-xl text-[10px] font-black transition-all ${viewMode === 'RECIPES' ? 'bg-white text-primary shadow-sm' : 'text-zinc-400 uppercase'}`}>Recettes</button>
                         <button onClick={() => setViewMode('BATCHES')} className={`px-4 py-2 rounded-xl text-[10px] font-black transition-all ${viewMode === 'BATCHES' ? 'bg-white text-primary shadow-sm' : 'text-zinc-400 uppercase'}`}>Fournées</button>
                     </div>
-                    <button className="neo-button flex items-center gap-2">
+                    <button onClick={() => setShowNewRecipe(true)} className="neo-button flex items-center gap-2">
                         <Plus className="w-4 h-4" /> Nouvelle Recette
                     </button>
                 </div>
@@ -201,6 +202,56 @@ export const ProductionModule: React.FC = () => {
                             ))}
                         </div>
                     </div>
+                </div>
+            )}
+
+            {showNewRecipe && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-900/40 backdrop-blur-sm animate-in fade-in">
+                    <GlassCard className="w-full max-w-md p-8">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-black uppercase tracking-tighter">Créer Recette</h3>
+                            <button onClick={() => setShowNewRecipe(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 transition-colors">
+                                <Plus className="w-5 h-5 text-zinc-600 rotate-45" />
+                            </button>
+                        </div>
+                        <form onSubmit={async (e) => {
+                            e.preventDefault();
+                            const formData = new FormData(e.currentTarget);
+                            const newRecipe: Recipe = {
+                                id: `REC-${Date.now()}`,
+                                productId: `PROD-${Date.now()}`,
+                                productName: formData.get('name') as string,
+                                yield: Number(formData.get('yield')),
+                                unit: formData.get('unit') as 'PORTIONS' | 'KG' | 'L',
+                                ingredients: [{ ingredientId: 'ING-1', ingredientName: 'Ingrédient de base', quantity: 1, unit: 'KG' }],
+                                totalCost: 1000,
+                                lastUpdated: Date.now()
+                            };
+                            await db.saveRecipe(newRecipe);
+                            setShowNewRecipe(false);
+                            loadData();
+                        }} className="space-y-4">
+                            <div>
+                                <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-2">Nom du Produit Fini</label>
+                                <input name="name" required placeholder="Ex: Pâte à Crêpe" className="w-full bg-zinc-50 border-none rounded-2xl px-6 py-4 font-black text-xs text-zinc-800" />
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-2">Rendement</label>
+                                    <input name="yield" type="number" required defaultValue={10} className="w-full bg-zinc-50 border-none rounded-2xl px-6 py-4 font-black text-xs text-zinc-800 text-center" />
+                                </div>
+                                <div>
+                                    <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-2">Unité</label>
+                                    <select name="unit" className="w-full bg-zinc-50 border-none rounded-2xl px-6 py-4 font-black text-xs text-zinc-800 text-center uppercase">
+                                        <option value="PORTIONS">PORTIONS</option>
+                                        <option value="KG">KILO</option>
+                                        <option value="L">LITRE</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" className="w-full py-5 bg-primary text-white rounded-[1.5rem] font-black text-sm uppercase tracking-[0.2em] shadow-xl hover:scale-[1.02] transition-all mt-4">Enregistrer & Définir Ingrédients</button>
+                        </form>
+                    </GlassCard>
                 </div>
             )}
         </div>
